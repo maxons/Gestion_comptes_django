@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from gestion_operations.models import Types, Compte, Operation
-from .form import OperationForm
+from .forms import OperationForm
 
 # Create your views here.
 def accueil(request):

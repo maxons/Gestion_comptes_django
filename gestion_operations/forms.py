@@ -1,6 +1,6 @@
 from django import forms
 
-class OperationForm(form.Form):
+class OperationForm(forms.Form):
     numeroCompte = forms.NumberInput()
     montant = forms.NumberInput()
     date = forms.DateInput()
