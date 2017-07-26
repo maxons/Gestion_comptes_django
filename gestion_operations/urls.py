@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
 
     url(r'^$', views.accueil, name="accueil"),
+    url(r'^form_ope/$', views.operation_form, name="form_ope"),
 ]
 
 
