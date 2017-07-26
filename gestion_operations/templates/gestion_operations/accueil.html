@@ -1,0 +1,38 @@
+<h1>Gestion de comptes</h1>
+
+<table>
+
+
+{% for type in Operation %}
+    <tr>
+<td>
+    {{type.compte}}
+</td>
+<td>
+    {{type.montant}}
+</td>
+<td>
+    {{type.date_ope}}
+</td>
+<td>
+    {{type.type}}
+</td>
+<td>
+    {{type.debit}}
+</td>
+<td>
+    {{type.description}}
+</td>
+<td>
+    {{type.type_0}}
+</td>
+
+
+    </tr>
+
+{% empty %}
+    <p>Aucun type.</p>
+{% endfor %}
+
+</table>
+
