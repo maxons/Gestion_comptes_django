@@ -33,7 +33,7 @@ class Operation(models.Model):
     type = models.CharField(max_length=150, blank=True, null=True)
     debit = models.CharField(max_length=5, blank=True, null=True)
     description = models.CharField(max_length=150, blank=True, null=True)
-    type_0 = models.ForeignKey('Types')
+    type_0 = models.ForeignKey('Types', verbose_name = "Type")
 
     class Meta:
         managed = True
