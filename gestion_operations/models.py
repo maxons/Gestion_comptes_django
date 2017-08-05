@@ -13,7 +13,7 @@ class Compte(models.Model):
         db_table = 'compte'
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class Types(models.Model):
@@ -25,7 +25,7 @@ class Types(models.Model):
         db_table = 'types'
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class Operation(models.Model):
@@ -43,4 +43,4 @@ class Operation(models.Model):
         db_table = 'operation'
 
     def __str__(self):
-        return self.id
+        return str(self.id)
