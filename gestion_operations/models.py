@@ -18,7 +18,7 @@ class Compte(models.Model):
 
 class Types(models.Model):
     id = models.AutoField(primary_key=True)
-    nom = models.CharField(max_length=150)
+    nom = models.CharField(max_length=150, unique = True)
 
     class Meta:
         managed = False
@@ -36,7 +36,7 @@ class Operation(models.Model):
     type = models.CharField(max_length=150, blank=True, null=True)
     debit = models.CharField(max_length=5, blank=True, null=True)
     description = models.CharField(max_length=150, blank=True, null=True)
-    type_0 = models.ForeignKey('Types', verbose_name = "Type")
+    type_0 = models.ForeignKey(Types, to_field = 'id')
 
     class Meta:
         managed = True

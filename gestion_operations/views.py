@@ -22,6 +22,8 @@ def operation_form(request):
         description = form.cleaned_data['description']"""
         oper = form.save(commit=False)
         c_type = oper.type_0
+        selected_type = request.POST.get("types_perso")
+        all_types = Types.objects.all()
 
         envoi = True
     return render(request, 'gestion_operations/form_ope.html', locals())
