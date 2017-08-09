@@ -1,5 +1,5 @@
 from django import forms
-from .models import Operation, Types
+from .models import Operation, Types, Compte
 
 
 class OperationForm(forms.ModelForm):
@@ -13,21 +13,17 @@ class OperationForm(forms.ModelForm):
     date_ope = forms.DateField(widget= forms.SelectDateWidget(years=range(2017, 2021)))
     description = forms.CharField(widget = forms.Textarea)
 
-    CHOICES=[('select1','select 1'),
-             ('select2','select 2')]
+    debit = forms.BooleanField(initial = True, required = False)
 
-    all_types = Types.objects.all()
-    like = forms.ChoiceField(choices=CHOICES)
-
-
-    debit = forms.BooleanField()
     # for type in all_types:
-    types_perso = forms.ChoiceField(choices=[(o.id, o.nom) for o in all_types])
+    all_types = Types.objects.all()
+    type_form = forms.ChoiceField(choices=[(o.id, o.nom) for o in all_types])
     #types_perso = forms.ModelChoiceField(all_types)
 
-
+    all_comptes = Compte.objects.all()
+    compte_form = forms.ChoiceField(choices=[(o.id, o.nom) for o in all_comptes])
 
     class Meta:
         model = Operation
         #fields = '__all__'
-        fields = ['compte', 'montant', 'date_ope', 'debit','type_0', 'description']
+        fields = ['montant', 'date_ope', 'debit', 'description']

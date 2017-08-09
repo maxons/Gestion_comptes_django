@@ -20,10 +20,35 @@ def operation_form(request):
         types = form.cleaned_data['types']
         debit = form.cleaned_data['debit']
         description = form.cleaned_data['description']"""
+
+
         oper = form.save(commit=False)
-        c_type = oper.type_0
-        selected_type = request.POST.get("types_perso")
-        all_types = Types.objects.all()
+
+        # Set values for type
+        selected_type = request.POST.get("type_form")
+        oper.type_0 = Types.objects.get(id = int(selected_type))
+        oper.type = oper.type_0.nom
+
+        # Set compte foreign key
+        selected_compte = request.POST.get("compte_form")
+        c_compte = Compte.objects.get(id = int(selected_compte))
+        oper.compte = c_compte
+
+        # computes new solde
+        ancien_solde = c_compte.solde
+
+        if oper.debit == "True":
+            nouveau_solde = ancien_solde - oper.montant
+        else:
+            nouveau_solde = ancien_solde + oper.montant
+
+        # update solde value in compte
+        c_compte.solde = nouveau_solde
+
+        all_operations = Operation.objects.all().order_by('-id')[:20]
+        all_compte = Compte.objects.all()
 
         envoi = True
+
+
     return render(request, 'gestion_operations/form_ope.html', locals())

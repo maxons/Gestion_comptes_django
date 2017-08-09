@@ -1,7 +1,10 @@
 
 
-{% if envoi %}Votre message a bien été envoyé !
-{{selected_type}}
+{% if envoi %}Votre operation a bien été ajoutée ! <br>
+{{oper.debit}} <br>
+{{ancien_solde}} <br>
+{{nouveau_solde}} <br>
+{{c_compte.solde}}
 {% endif %}
 
 
@@ -11,3 +14,62 @@
     {{ form.as_p }}
     <input type="submit" value="Submit" />
 </form>
+
+<hr>
+
+<table>
+{% for compte in all_compte %}
+    <tr>
+        <td>
+        {{compte.id}}
+        </td>
+        <td>
+        {{compte.nom}}
+        </td>
+        <td>
+        {{compte.solde}}
+        </td>
+    </tr>
+{% endfor %}
+
+</table>
+
+
+
+<hr>
+<table>
+{% for ope in all_operations %}
+    <tr>
+<td>
+    {{ope.id}}
+</td>
+<td>
+    {{ope.compte}}
+</td>
+<td>
+    {{ope.montant}}
+</td>
+<td>
+    {{ope.date_ope}}
+</td>
+<td>
+    {{ope.type}}
+</td>
+<td>
+    {{ope.debit}}
+</td>
+<td>
+    {{ope.description}}
+</td>
+<td>
+    {{ope.type_0}}
+</td>
+
+
+    </tr>
+
+{% empty %}
+    <p>Aucune ope.</p>
+{% endfor %}
+
+</table>
