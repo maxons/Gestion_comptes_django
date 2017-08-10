@@ -24,6 +24,8 @@ def operation_form(request):
 
         oper = form.save(commit=False)
 
+        oper.debit = oper.debit.upper()
+
         # Set values for type
         selected_type = request.POST.get("type_form")
         oper.type_0 = Types.objects.get(id = int(selected_type))
@@ -37,7 +39,7 @@ def operation_form(request):
         # computes new solde
         ancien_solde = c_compte.solde
 
-        if oper.debit == "True":
+        if oper.debit == "TRUE":
             nouveau_solde = ancien_solde - oper.montant
         else:
             nouveau_solde = ancien_solde + oper.montant
@@ -45,10 +47,13 @@ def operation_form(request):
         # update solde value in compte
         c_compte.solde = nouveau_solde
 
-        all_operations = Operation.objects.all().order_by('-id')[:20]
-        all_compte = Compte.objects.all()
+        oper.save()
+        c_compte.save()
+
 
         envoi = True
 
+    all_operations = Operation.objects.all().order_by('-id')[:20]
+    all_compte = Compte.objects.all()
 
     return render(request, 'gestion_operations/form_ope.html', locals())
