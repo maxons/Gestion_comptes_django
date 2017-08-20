@@ -2,7 +2,8 @@ import django_tables2 as tables
 from .models import Operation, Types, Compte
 
 class OperationTable(tables.Table):
-    amend = tables.TemplateColumn('<input type="radio" name=test value="{{ record.pk }}" />', verbose_name="Amend")
+
+    modify = tables.TemplateColumn('<input type="radio" name="modify" value="{{ record.id }}" />', verbose_name="Modify")
     selection = tables.CheckBoxColumn(accessor='pk')
     class Meta:
         model = Operation

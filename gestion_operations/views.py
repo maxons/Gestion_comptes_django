@@ -62,19 +62,26 @@ def operation_form(request):
 def tables2_test(request):
     table = OperationTable(Operation.objects.all())
 
-    if request.method == "POST":
-        pks = request.POST.getlist("selection")
-        res = Operation.objects.filter(pk__in=pks)
-        # do something with selected_objects
-    else:
-        res = "no selection"
+    # if request.method == "POST":
+    #     pks = request.POST.getlist("modify")
+    #     res = Operation.objects.filter(pk__in=pks)
+    #     # do something with selected_objects
+    # else:
+    #     res = "no selection"
 
     friends = Types.objects.all()
 
     return render(request, 'gestion_operations/test_table.html', locals())
 
 
-
+def modify_ope(request):
+    if request.method == "POST":
+        pks = request.POST.getlist("modify")
+        res = Operation.objects.filter(pk__in=pks)
+        # do something with selected_objects
+    else:
+        res = "no selection"
+    return render(request, 'gestion_operations/modify_ope.html', locals())
 
 
 

@@ -1,10 +1,11 @@
 {{res}}
 
-<form action= {% url "test_table" %} method="post">
+<form action= {% url "modify_ope" %} method="post">
     {% csrf_token %}
     {% load render_table from django_tables2 %}
-    {% render_table table %}
     <input type="submit"/>
+    {% render_table table %}
+
 </form>
 
 <!-- {% for friend in friends %}
