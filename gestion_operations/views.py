@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from gestion_operations.models import Types, Compte, Operation
 from .forms import OperationForm
-
+from .tables import OperationTable
 
 # Create your views here.
 def accueil(request):
@@ -57,3 +57,25 @@ def operation_form(request):
     all_compte = Compte.objects.all()
 
     return render(request, 'gestion_operations/form_ope.html', locals())
+
+
+def tables2_test(request):
+    table = OperationTable(Operation.objects.all())
+
+    if request.method == "POST":
+        pks = request.POST.getlist("selection")
+        res = Operation.objects.filter(pk__in=pks)
+        # do something with selected_objects
+    else:
+        res = "no selection"
+
+    friends = Types.objects.all()
+
+    return render(request, 'gestion_operations/test_table.html', locals())
+
+
+
+
+
+
+

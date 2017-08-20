@@ -1,0 +1,17 @@
+{{res}}
+
+<form action= {% url "test_table" %} method="post">
+    {% csrf_token %}
+    {% load render_table from django_tables2 %}
+    {% render_table table %}
+    <input type="submit"/>
+</form>
+
+<!-- {% for friend in friends %}
+
+<input type="radio" name="recommendations" id="option{{friend.id}}" value={{friend.username}} />
+
+<label for="option{{friend.id}}"><b>{{friend.nom}}</b></label><br/>
+
+{% endfor %}
+ -->
