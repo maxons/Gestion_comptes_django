@@ -7,7 +7,7 @@
 {{c_compte.solde}}
 {% endif %}
 
-
+<a href={% url "accueil" %}> Retour à l'accueil </a>
 
 <form action="{% url "form_ope" %}" method="post">
     {% csrf_token %}
