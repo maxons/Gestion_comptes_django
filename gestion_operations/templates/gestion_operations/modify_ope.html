@@ -4,6 +4,16 @@
 
 {{pks}}
 
+{{oper_dict}}
+
+<form action="{% url "modify_ope" %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+
+
 <h1>Operation</h1>
 <table border=1>
     <tr>
