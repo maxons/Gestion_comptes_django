@@ -6,10 +6,36 @@
 
 {{oper_dict}}
 
-<form action="{% url "modify_ope" %}" method="post">
+<br><br>
+{% if envoi == True %}
+Envoie tkl
+{% else %}
+Pas d'envoi
+{% endif %}
+
+<br>
+
+Envoie: {{envoi}} <br>
+Bound: {{form_modif.is_bound}} <br>
+<!--{{ form.errors }}
+{{ form.non_field_errors }} -->
+
+
+<br><br>
+{{request.POST}}
+
+<br><br>
+{% if changes == True %}
+Des changements
+{% else %}
+Pas de changements
+{% endif %}
+
+
+<form action="{% url "update_op_value" 24 %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
+    {{ form_modif.as_p }}
+    <input name="change_ope_values" type="submit" value="Submit" />
 </form>
 
 

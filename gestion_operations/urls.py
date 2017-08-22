@@ -7,6 +7,8 @@ urlpatterns = [
     url(r'^form_ope/$', views.operation_form, name="form_ope"),
     url(r'^test_table/$', views.tables2_test, name="test_table"),
     url(r'^modify_ope/$', views.modify_ope, name="modify_ope"),
+    url(r'^update_op_value/(?P<oper_id>\d+)$', views.update_op_value, name="update_op_value"),
+    url(r'^addition/(?P<nombre1>\d+)/(?P<nombre2>\d+)/$', views.addition, name="add")
 ]
 
 

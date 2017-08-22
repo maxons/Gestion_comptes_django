@@ -75,78 +75,54 @@ def tables2_test(request):
 
 
 def modify_ope(request):
-    if request.method == "POST":
-        pks = request.POST.getlist("modify")
-        res = Operation.objects.filter(pk__in=pks)
-        # do something with selected_objects
+    pks_moi = ['24']
+    res = Operation.objects.filter(pk__in=pks_moi)
+    # do something with selected_objects
 
-        if res:
-            some_text = "Mais oui mon gars! Ya un truc"
-            oper = Operation.objects.get(id = int(pks[0]))
+    if res:
+        some_text = "Mais oui mon gars! Ya un truc"
+        oper = Operation.objects.get(id = int(pks_moi[0]))
 
-            # Compte.objects.get(id = oper.compte)
-            selected_compte = oper.compte
+        # Compte.objects.get(id = oper.compte)
+        selected_compte = oper.compte
 
-            oper_dict = {
-                            'montant': oper.montant,
-                            'date_ope': oper.date_ope,
-                            'description': oper.description,
-                            'type_form': oper.type_0,
-                            'compte_form': oper.compte
-                        }
-
-            form = ModifyOperationForm(initial = oper_dict)
-            if form.is_valid():
-                envoi = True
-            """numeroCompte = form.cleaned_data['numeroCompte']
-            montant = form.cleaned_data['montant']
-            date = form.cleaned_data['date']
-            types = form.cleaned_data['types']
-            debit = form.cleaned_data['debit']
-            description = form.cleaned_data['description']"""
-
-            """
-            oper = form.save(commit=False)
-
-            oper.debit = oper.debit.upper()
-
-            # Set values for type
-            selected_type = request.POST.get("type_form")
-            oper.type_0 = Types.objects.get(id = int(selected_type))
-            oper.type = oper.type_0.nom
-
-            # Set compte foreign key
-            selected_compte = request.POST.get("compte_form")
-            c_compte = Compte.objects.get(id = int(selected_compte))
-            oper.compte = c_compte
-
-            # computes new solde
-            ancien_solde = c_compte.solde
-
-            if oper.debit == "TRUE":
-                nouveau_solde = ancien_solde - oper.montant
-            else:
-                nouveau_solde = ancien_solde + oper.montant
-
-            # update solde value in compte
-            c_compte.solde = nouveau_solde
-
-            oper.save()
-            c_compte.save()
-
-
+        oper_dict = {
+                        'montant': oper.montant,
+                        'date_ope': oper.date_ope,
+                        'description': oper.description,
+                        'type_form': oper.type_0,
+                        'compte_form': oper.compte,
+                        'id': oper.id
+                    }
+        oper_id = oper.id
+        #request.POST = None
+        form_modif = ModifyOperationForm(initial = oper_dict)
+        request.POST.id_ope = oper.id
+        """if form_modif.is_valid() :
             envoi = True
+            if form_modif.has_changed():
+                changes = True
+            else : changes = False
 
-            all_operations = Operation.objects.all().order_by('-id')[:20]
-            all_compte = Compte.objects.all()
-            """
+        else : envoi = False"""
 
-        else: some_text = "Désolé l'ami ya rien"
 
-    else:
-        res = "no selection"
     return render(request, 'gestion_operations/modify_ope.html', locals())
 
+def update_op_value(request, oper_id):
+    form = ModifyOperationForm(request.POST or None)
+    if form.is_valid():
+        corrections = form.save(commit = False)
+        envoi = True
 
+    else: envoi = False
+
+    return render(request, 'gestion_operations/update_op_value.html', locals())
+
+def addition(request, nombre1, nombre2):
+    total = int(nombre1) + int(nombre2)
+
+    # Retourne nombre1, nombre2 et la somme des deux au tpl
+    return render(request, 'gestion_operations/addition.html', locals())
 
 

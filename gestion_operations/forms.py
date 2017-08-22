@@ -41,11 +41,11 @@ class ModifyOperationForm(forms.ModelForm):
 
     all_comptes = Compte.objects.all()
     compte_form = forms.ChoiceField(choices=[(o.id, o.nom) for o in all_comptes])
-
+    #id = forms.CharField(widget = forms.NumberInput)
     class Meta:
         model = Operation
         #fields = '__all__'
-        fields = ['montant', 'date_ope', 'description']
+        fields = ['montant', 'date_ope', 'description', 'id']
 
 
 

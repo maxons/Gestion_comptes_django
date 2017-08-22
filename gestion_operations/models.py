@@ -44,3 +44,8 @@ class Operation(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+# medecin
+# voiture
+# habitation
