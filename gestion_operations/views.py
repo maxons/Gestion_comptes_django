@@ -79,6 +79,16 @@ def modify_ope(request):
         pks = request.POST.getlist("modify")
         res = Operation.objects.filter(pk__in=pks)
         # do something with selected_objects
+
+        if res:
+            some_text = "Mais oui mon gars! Ya un truc"
+            oper = Operation.objects.get(id = int(pks[0]))
+
+
+
+
+        else: some_text = "Désolé l'ami ya rien"
+
     else:
         res = "no selection"
     return render(request, 'gestion_operations/modify_ope.html', locals())

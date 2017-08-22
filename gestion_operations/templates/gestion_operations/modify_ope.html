@@ -1,3 +1,44 @@
 <a href={% url "test_table" %}> Retour</a>
 
 {{res}}
+
+{{pks}}
+
+<table border=1>
+    <tr>
+        <td>Desc valeur</td>
+        <td>Anciennes valeurs</td>
+        <td>Nouvelles valeurs</td>
+    </tr>
+    <tr>
+        <td>Compte</td>
+        <td>{{oper.compte}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Montant</td>
+        <td>{{oper.montant}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Date opé</td>
+        <td>{{oper.date_ope}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td>{{oper.type}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>{{oper.description}}</td>
+        <td></td>
+    </tr>
+
+
+
+
+
+
+
