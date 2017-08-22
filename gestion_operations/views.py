@@ -84,6 +84,8 @@ def modify_ope(request):
             some_text = "Mais oui mon gars! Ya un truc"
             oper = Operation.objects.get(id = int(pks[0]))
 
+            # Compte.objects.get(id = oper.compte)
+            selected_compte = oper.compte
 
 
 
