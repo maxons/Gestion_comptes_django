@@ -75,7 +75,7 @@ def tables2_test(request):
 
 
 def modify_ope(request):
-    pks_moi = ['24']
+    pks_moi = request.POST.getlist("modify")
     res = Operation.objects.filter(pk__in=pks_moi)
     # do something with selected_objects
 
@@ -163,6 +163,10 @@ def update_op_value(request, oper_id):
         oper_new.date_ope = corrections.date_ope
         # Description
         oper_new.description = corrections.description
+
+        # update operation and compte in bdd
+        oper_new.save()
+        c_compte.save()
 
     else: envoi = False
 

@@ -31,12 +31,23 @@ Des changements
 Pas de changements
 {% endif %}
 
-
-<form action="{% url "update_op_value" 24 %}" method="post">
+{% if oper_id %}
+<form action="{% url 'update_op_value' oper_id %}" method="post">
+{% else %}
+<form action="{% url 'update_op_value' 24 %}" method="post">
+{% endif %}
     {% csrf_token %}
     {{ form_modif.as_p }}
     <input name="change_ope_values" type="submit" value="Submit" />
 </form>
+
+
+{% if oper_null %}
+    Oper_null not null biatch
+{% else %}
+    Oper_null null mouahahahah
+{% endif %}
+
 
 
 
