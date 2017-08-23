@@ -116,19 +116,53 @@ def update_op_value(request, oper_id):
 
         oper = Operation.objects.get(id = oper_id)
 
-        oper_new = oper
+        oper_new = Operation.objects.get(id = oper_id)
 
+        # Set type foreign key
         selected_type = request.POST.get("type_form")
         oper_new.type_0 = Types.objects.get(id = int(selected_type))
-        oper_new.type = oper.type_0.nom
+        oper_new.type = oper_new.type_0.nom
 
         # Set compte foreign key
         selected_compte = request.POST.get("compte_form")
         c_compte = Compte.objects.get(id = int(selected_compte))
         oper_new.compte = c_compte
 
-        n_compte = c_compte
 
+        oper_new.montant = corrections.montant
+
+        # if the account has changed we have to udapte to solde value
+        if oper_new.compte != oper.compte :
+
+            if oper.debit == 'TRUE' :
+                oper.compte.solde = oper.montant + oper.compte.solde
+                c_compte.solde = c_compte.solde - corrections.montant
+                pb = "ok"
+            elif oper.debit == 'FALSE' :
+                oper.compte.solde = oper.compte.solde - oper.montant
+                c_compte.solde = c_compte.solde + corrections.montant
+                pb = "ok"
+            else :
+                pb = "notok"
+
+        # same account but different values
+        elif (oper_new.compte == oper.compte) & (corrections.montant != oper.montant) :
+            # diff between old and new value
+            diff = oper.montant - corrections.montant
+            if oper_new.debit == 'TRUE' :
+                c_compte.solde = c_compte.solde + diff
+                pb = "ok"
+            elif oper_new.debit == 'FALSE' :
+                c_compte.solde = c_compte.solde - diff
+                pb = "ok"
+            else :
+                pb = "notok"
+        else : pb =  "nomodif"
+
+        # Date ope
+        oper_new.date_ope = corrections.date_ope
+        # Description
+        oper_new.description = corrections.description
 
     else: envoi = False
 

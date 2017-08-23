@@ -9,7 +9,10 @@
 
 <br>
 {{corrections.montant}}
-
+<br>
+{{diff}}
+<br>
+{{pb}}
 
 
 <h1>Operation</h1>
@@ -62,18 +65,18 @@
     </tr>
     <tr>
         <td>id</td>
+        <td>{{oper.compte.id}}</td>
         <td>{{c_compte.id}}</td>
-        <td>{{n_compte.id}}</td>
     </tr>
     <tr>
         <td>Nom</td>
+        <td>{{oper.compte.nom}}</td>
         <td>{{c_compte.nom}}</td>
-        <td>{{n_compte.nom}}</td>
     </tr>
     <tr>
         <td>Solde</td>
+        <td>{{oper.compte.solde}}</td>
         <td>{{c_compte.solde}}</td>
-        <td>{{n_compte.solde}}</td>
     </tr>
 
 </table>
