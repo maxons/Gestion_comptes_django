@@ -4,3 +4,75 @@
 
 <br><br>
 {{request.POST}}
+
+<br>
+{{corrections.montant}}
+
+
+
+<h1>Operation</h1>
+<table border=1>
+    <tr>
+        <td>Desc valeur</td>
+        <td>Anciennes valeurs</td>
+        <td>Nouvelles valeurs</td>
+    </tr>
+    <tr>
+        <td>Compte</td>
+        <td>{{oper.compte}}</td>
+        <td>{{oper_new.compte}}</td>
+    </tr>
+    <tr>
+        <td>Montant</td>
+        <td>{{oper.montant}}</td>
+        <td>{{oper_new.montant}}</td>
+    </tr>
+    <tr>
+        <td>Date opé</td>
+        <td>{{oper.date_ope}}</td>
+        <td>{{oper_new.date_ope}}</td>
+    </tr>
+    <tr>
+        <td>Type 0</td>
+        <td>{{oper.type_0}}</td>
+        <td>{{oper_new.type_0}}</td>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td>{{oper.type}}</td>
+        <td>{{oper_new.type}}</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>{{oper.description}}</td>
+        <td>{{oper_new.description}}</td>
+    </tr>
+</table>
+
+
+<h1>Compte</h1>
+
+<table border=1>
+    <tr>
+        <td>Desc valeur</td>
+        <td>Anciennes valeurs</td>
+        <td>Nouvelles valeurs</td>
+    </tr>
+    <tr>
+        <td>id</td>
+        <td>{{c_compte.id}}</td>
+        <td>{{n_compte.id}}</td>
+    </tr>
+    <tr>
+        <td>Nom</td>
+        <td>{{c_compte.nom}}</td>
+        <td>{{n_compte.nom}}</td>
+    </tr>
+    <tr>
+        <td>Solde</td>
+        <td>{{c_compte.solde}}</td>
+        <td>{{n_compte.solde}}</td>
+    </tr>
+
+</table>
+

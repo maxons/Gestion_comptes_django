@@ -45,7 +45,7 @@ class ModifyOperationForm(forms.ModelForm):
     class Meta:
         model = Operation
         #fields = '__all__'
-        fields = ['montant', 'date_ope', 'description', 'id']
+        fields = ['montant', 'date_ope', 'description']
 
 
 

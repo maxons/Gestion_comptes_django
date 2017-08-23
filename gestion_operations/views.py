@@ -91,8 +91,7 @@ def modify_ope(request):
                         'date_ope': oper.date_ope,
                         'description': oper.description,
                         'type_form': oper.type_0,
-                        'compte_form': oper.compte,
-                        'id': oper.id
+                        'compte_form': oper.compte
                     }
         oper_id = oper.id
         #request.POST = None
@@ -114,6 +113,22 @@ def update_op_value(request, oper_id):
     if form.is_valid():
         corrections = form.save(commit = False)
         envoi = True
+
+        oper = Operation.objects.get(id = oper_id)
+
+        oper_new = oper
+
+        selected_type = request.POST.get("type_form")
+        oper_new.type_0 = Types.objects.get(id = int(selected_type))
+        oper_new.type = oper.type_0.nom
+
+        # Set compte foreign key
+        selected_compte = request.POST.get("compte_form")
+        c_compte = Compte.objects.get(id = int(selected_compte))
+        oper_new.compte = c_compte
+
+        n_compte = c_compte
+
 
     else: envoi = False
 
