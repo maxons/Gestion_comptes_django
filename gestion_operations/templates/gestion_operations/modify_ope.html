@@ -1,8 +1,30 @@
 <a href={% url "select_ope" %}> Retour</a>
-
+<!--
 {{res}}
 
-{{pks}}
+<br>
+{{request.POST}}
+<br>
+{{pks_modify}} <br>
+{{pks_delete}}
+<br>
+
+{% if pks_modify %}
+An ope to modify
+{% else %}
+No ope to modify
+{% endif %}
+
+<br>
+
+{% if pks_delete %}
+Some ope to delete
+{% else %}
+No ope to delete
+{% endif %}
+
+<br>
+
 
 {{oper_dict}}
 
@@ -13,23 +35,18 @@ Envoie tkl
 Pas d'envoi
 {% endif %}
 
+
 <br>
+-->
 
-Envoie: {{envoi}} <br>
-Bound: {{form_modif.is_bound}} <br>
-<!--{{ form.errors }}
-{{ form.non_field_errors }} -->
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
 
-
-<br><br>
-{{request.POST}}
-
-<br><br>
-{% if changes == True %}
-Des changements
-{% else %}
-Pas de changements
-{% endif %}
+{% elif pks_modify %}
 
 {% if oper_id %}
 <form action="{% url 'update_op_value' oper_id %}" method="post">
@@ -42,6 +59,34 @@ Pas de changements
 </form>
 
 
+{% elif pks_delete %}
+
+{% for to_del in res_delete %}
+{{to_del.id}}
+{% endfor %}
+
+{% endif %}
+
+<!--
+<br>
+
+Envoie: {{envoi}} <br>
+Bound: {{form_modif.is_bound}} <br>
+
+
+<br><br>
+{{request.POST}}
+
+<br><br>
+{% if changes == True %}
+Des changements
+{% else %}
+Pas de changements
+{% endif %}
+
+
+
+
 {% if oper_null %}
     Oper_null not null biatch
 {% else %}
@@ -49,7 +94,7 @@ Pas de changements
 {% endif %}
 
 
-
+-->
 
 
 

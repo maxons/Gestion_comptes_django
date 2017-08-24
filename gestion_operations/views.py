@@ -2,6 +2,7 @@ from django.shortcuts import render
 from gestion_operations.models import Types, Compte, Operation
 from .forms import OperationForm , ModifyOperationForm
 from .tables import OperationTable
+from django.contrib import messages
 
 # Create your views here.
 def accueil(request):
@@ -76,10 +77,14 @@ def select_ope(request):
 
 def modify_ope(request):
     pks_modify = request.POST.getlist("modify")
-    res = Operation.objects.filter(pk__in=pks_modify)
     # do something with selected_objects
 
-    if res:
+    pks_delete = request.POST.getlist("delete_ope")
+
+
+    if pks_delete and pks_modify :
+        messages.error(request, 'MODIFY AND DELETE.')
+    elif pks_modify:
         some_text = "Mais oui mon gars! Ya un truc"
         oper = Operation.objects.get(id = int(pks_modify[0]))
 
@@ -94,6 +99,14 @@ def modify_ope(request):
                     }
         oper_id = oper.id
         form_modif = ModifyOperationForm(initial = oper_dict)
+
+    elif pks_delete:
+        res_delete = Operation.objects.filter(pk__in=pks_delete)
+    else :
+        messages.error(request, 'NOTHING')
+
+
+
 
     return render(request, 'gestion_operations/modify_ope.html', locals())
 
