@@ -1,5 +1,9 @@
 {{res}}
 
+<a href={% url "accueil" %}> Lien vers accueil </a>
+
+
+
 <form action= {% url "modify_ope" %} method="post">
     {% csrf_token %}
     {% load render_table from django_tables2 %}

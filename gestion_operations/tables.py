@@ -4,7 +4,7 @@ from .models import Operation, Types, Compte
 class OperationTable(tables.Table):
 
     modify = tables.TemplateColumn('<input type="radio" name="modify" value="{{ record.id }}" />', verbose_name="Modify")
-    selection = tables.CheckBoxColumn(accessor='pk')
+    selection = tables.CheckBoxColumn(accessor='pk', verbose_name="Delete")
     class Meta:
         model = Operation
 

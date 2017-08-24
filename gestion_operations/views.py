@@ -59,7 +59,7 @@ def operation_form(request):
     return render(request, 'gestion_operations/form_ope.html', locals())
 
 
-def tables2_test(request):
+def select_ope(request):
     table = OperationTable(Operation.objects.all())
 
     # if request.method == "POST":
@@ -71,7 +71,7 @@ def tables2_test(request):
 
     friends = Types.objects.all()
 
-    return render(request, 'gestion_operations/test_table.html', locals())
+    return render(request, 'gestion_operations/select_ope.html', locals())
 
 
 def modify_ope(request):
