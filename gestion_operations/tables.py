@@ -9,6 +9,7 @@ class OperationTableWF(tables.Table):
         model = Operation
 
 class OperationTable(tables.Table):
+    delete_ope = tables.TemplateColumn('<input type="checkbox" name="delete_ope" value="{{ record.id }}" checked/>', verbose_name="Delete")
     class Meta:
         model = Operation
 

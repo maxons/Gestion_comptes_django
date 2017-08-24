@@ -181,4 +181,13 @@ def addition(request, nombre1, nombre2):
     # Retourne nombre1, nombre2 et la somme des deux au tpl
     return render(request, 'gestion_operations/addition.html', locals())
 
+def delete_ope(request) :
+    pks_delete = request.POST.getlist("delete_ope")
 
+    if pks_delete:
+        messages.success(request, 'delete')
+        res_delete = Operation.objects.filter(pk__in=pks_delete)
+        table_to_delete = OperationTable(res_delete)
+    else :
+        messages.error(request, 'NOTHING')
+    return render(request, 'gestion_operations/delete_operation.html', locals())

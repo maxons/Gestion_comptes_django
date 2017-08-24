@@ -8,7 +8,11 @@ urlpatterns = [
     url(r'^select_ope/$', views.select_ope, name="select_ope"),
     url(r'^modify_ope/$', views.modify_ope, name="modify_ope"),
     url(r'^update_op_value/(?P<oper_id>\d+)$', views.update_op_value, name="update_op_value"),
-    url(r'^addition/(?P<nombre1>\d+)/(?P<nombre2>\d+)/$', views.addition, name="add")
+    url(r'^addition/(?P<nombre1>\d+)/(?P<nombre2>\d+)/$', views.addition, name="add"),
+    url(r'^delete_operation/$', views.delete_ope, name="delete_operation"),
+
+
+
 ]
 
 

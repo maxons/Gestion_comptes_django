@@ -1,0 +1,14 @@
+<a href={% url "select_ope" %}> Lien vers select opé </a>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+{% load render_table from django_tables2 %}
+<input name="select_ope_modify" type="submit"/>
+{% render_table table_to_delete %}
