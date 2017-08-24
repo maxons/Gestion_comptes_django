@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from gestion_operations.models import Types, Compte, Operation
 from .forms import OperationForm , ModifyOperationForm
-from .tables import OperationTable
+from .tables import OperationTableWF
 from django.contrib import messages
 
 # Create your views here.
@@ -61,7 +61,7 @@ def operation_form(request):
 
 
 def select_ope(request):
-    table = OperationTable(Operation.objects.all())
+    table = OperationTableWF(Operation.objects.all())
 
     # if request.method == "POST":
     #     pks = request.POST.getlist("modify")

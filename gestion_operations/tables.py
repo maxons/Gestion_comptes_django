@@ -1,7 +1,7 @@
 import django_tables2 as tables
 from .models import Operation, Types, Compte
 
-class OperationTable(tables.Table):
+class OperationTableWF(tables.Table):
 
     modify = tables.TemplateColumn('<input type="radio" name="modify" value="{{ record.id }}" />', verbose_name="Modify")
     delete_ope = tables.TemplateColumn('<input type="checkbox" name="delete_ope" value="{{ record.id }}" />', verbose_name="Delete")
