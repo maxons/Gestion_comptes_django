@@ -8,6 +8,11 @@ class OperationTableWF(tables.Table):
     class Meta:
         model = Operation
 
+class OperationTable(tables.Table):
+    class Meta:
+        model = Operation
+
+
 
 class TypesTable(tables.Table):
     class Meta:

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from gestion_operations.models import Types, Compte, Operation
 from .forms import OperationForm , ModifyOperationForm
-from .tables import OperationTableWF
+from .tables import OperationTableWF, OperationTable
 from django.contrib import messages
 
 # Create your views here.
@@ -102,6 +102,7 @@ def modify_ope(request):
 
     elif pks_delete:
         res_delete = Operation.objects.filter(pk__in=pks_delete)
+        table_to_delete = OperationTable(res_delete)
     else :
         messages.error(request, 'NOTHING')
 
