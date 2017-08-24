@@ -75,15 +75,14 @@ def select_ope(request):
 
 
 def modify_ope(request):
-    pks_moi = request.POST.getlist("modify")
-    res = Operation.objects.filter(pk__in=pks_moi)
+    pks_modify = request.POST.getlist("modify")
+    res = Operation.objects.filter(pk__in=pks_modify)
     # do something with selected_objects
 
     if res:
         some_text = "Mais oui mon gars! Ya un truc"
-        oper = Operation.objects.get(id = int(pks_moi[0]))
+        oper = Operation.objects.get(id = int(pks_modify[0]))
 
-        # Compte.objects.get(id = oper.compte)
         selected_compte = oper.compte
 
         oper_dict = {
@@ -94,17 +93,7 @@ def modify_ope(request):
                         'compte_form': oper.compte
                     }
         oper_id = oper.id
-        #request.POST = None
         form_modif = ModifyOperationForm(initial = oper_dict)
-        request.POST.id_ope = oper.id
-        """if form_modif.is_valid() :
-            envoi = True
-            if form_modif.has_changed():
-                changes = True
-            else : changes = False
-
-        else : envoi = False"""
-
 
     return render(request, 'gestion_operations/modify_ope.html', locals())
 
