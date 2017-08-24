@@ -188,6 +188,24 @@ def delete_ope(request) :
         messages.success(request, 'delete')
         res_delete = Operation.objects.filter(pk__in=pks_delete)
         table_to_delete = OperationTable(res_delete)
+
+        for to_del in res_delete :
+            c_compte = to_del.compte
+            if to_del.debit == "TRUE":
+                c_compte.solde = c_compte.solde + to_del.montant
+                c_compte.save()
+                to_del.delete()
+            elif to_del.debit == "FALSE":
+                c_compte.solde = c_compte.solde - to_del.montant
+                c_compte.save()
+                to_del.delete()
+            else :
+                messages.error(request, 'debit of operation is not TRUE of FALSE')
+
+        livret_jeune = Compte.objects.get(id=2)
+
+
+
     else :
         messages.error(request, 'NOTHING')
     return render(request, 'gestion_operations/delete_operation.html', locals())
