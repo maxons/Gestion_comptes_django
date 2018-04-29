@@ -253,8 +253,8 @@ dev.off()
 #ggsave(paste(chart_folder, "stack_deb_sep_cre.png", sep = ""), plot = plot_to_save)
 
 
-g <- ggplot_build(p_dist_deb)
-unique(g$data[[1]]["fill"])
+# g <- ggplot_build(p_dist_deb)
+# unique(g$data[[1]]["fill"])
 
 
 
