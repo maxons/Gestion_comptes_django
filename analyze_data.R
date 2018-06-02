@@ -10,6 +10,8 @@ library(ggplot2)
 library(grid)
 # pour faire multi ggplot2 graph
 library(gridExtra)
+# couleurs ggplot2
+library(scales)
 
 data <- read.csv("test_csv_pd.csv")
 
