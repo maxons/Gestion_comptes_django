@@ -14,7 +14,7 @@ library(gridExtra)
 data <- read.csv("test_csv_pd.csv")
 
 data$type <- factor(data$type, levels = c("Loyer", "Sorties", "Nourriture", "Loisirs", "Charges", "Autre",
-                                                    "Ammeublement", "Soin_Hygiene", "Sport", "Vetements", "Voyages", "Salaire"))
+                                                    "Ammeublement", "Soin_Hygiene", "Sport", "Vetements", "Voyages", "Salaire", "Travail"))
 
 # Clean whole dataset
 data$date_ope <- as.Date(data$date_ope, "%Y-%m-%d")
@@ -64,9 +64,15 @@ df_diff_deb_cred <- summarise(group_by(df_sum_all_t, date_ope), diff = sum(total
 cols <- c("TRUE" = "#E83F26", "FALSE" = "#28B463")
 col_diff = "#26547C"
 
-col_type <- c("Loyer" = "#F8766D", "Sorties" = "#DB8E00", "Nourriture" = "#AEA200", "Loisirs" = "#64B200", 
-              "Charges" = "#00BD5C", "Autre" = "#00C1A7", "Ammeublement" = "#00BADE", 
-              "Soin_Hygiene" = "#00A6FF", "Sport" = "#B385FF", "Vetements" = "#EF67EB", "Voyages" = "#FF63B6", "Salaire" = "#844D9E")
+col_type <- hue_pal()(length(levels(data$type)))
+names(col_type) <- levels(data$type)
+
+#library(scales)
+#show_col(hue_pal()(13))
+#col_type <- c("Loyer" = "#F8766D", "Sorties" = "#DB8E00", "Nourriture" = "#AEA200", "Loisirs" = "#64B200", 
+#              "Charges" = "#00BD5C", "Autre" = "#00C1A7", "Ammeublement" = "#00BADE", 
+#              "Soin_Hygiene" = "#00A6FF", "Sport" = "#B385FF", "Vetements" = "#EF67EB", "Voyages" = "#FF63B6", "Salaire" = "#844D9E", 
+#              "Travail" = "#8B93FF")
 
 # --------------------------------------------------------------------
 # We plot the demand by type with all months
@@ -170,7 +176,7 @@ summary_month(12)
 # Stacked bar chart for types with the sub budgets
 # --------------------------------------------------------------------
 
-to_keep = c('Ammeublement', 'Soin_Hygiene', 'Sport', 'Voyages', 'Vetements')
+to_keep = c('Ammeublement', 'Soin_Hygiene', 'Sport', 'Voyages', 'Vetements', 'Travail')
 data_keeped = df_sum_deb[df_sum_deb$type %in% to_keep,]
 #rm(p_sub)
 p_sub <- ggplot(data_keeped, aes(date_ope, total))
@@ -182,7 +188,7 @@ print(p_sub)
 # Stacked bar chart for types with the most volatility
 # --------------------------------------------------------------------
 
-to_remove = c('Loyer', 'Ammeublement', 'Soin_Hygiene', 'Sport', 'Voyages', 'Vetements')
+to_remove = c('Loyer', 'Ammeublement', 'Soin_Hygiene', 'Sport', 'Voyages', 'Vetements', 'Travail')
 data_keeped = df_sum_deb[!(df_sum_deb$type %in% to_remove),]
 #rm(p_most)
 p_most <- ggplot(data_keeped, aes(date_ope, total))
@@ -210,8 +216,9 @@ dev.off()
 # --------------------------------------------------------------------
 # Stacked bar chart with for each month the sum volatility/sub
 # --------------------------------------------------------------------
-to_sub = c('Ammeublement', 'Soin_Hygiene', 'Sport', 'Voyages', 'Vetements')
-# 
+to_sub = c('Ammeublement', 'Soin_Hygiene', 'Sport', 'Voyages', 'Vetements', 'Travail')
+for_chart <- df_sum_deb 
+for_chart[for_chart$type %in% to_sub,]$total <- -for_chart[for_chart$type %in% to_sub,]$total 
 # col_type <- c("Loyer" = "#00A6FF", "Sorties" = "#FF63B6", "Nourriture" = "#00BADE", "Loisirs" = "#B385FF", 
 #               "Charges" = "#EF67EB", "Autre" = "#F8766D", "Ammeublement" = "#DB8E00", 
 #               "Soin_Hygiene" = "#AEA200", "Sport" = "#64B200", "Vetements" = "#00BD5C", "Voyages" = "#00C1A7", "Salaire" = "#26547C")
@@ -233,15 +240,16 @@ to_sub = c('Ammeublement', 'Soin_Hygiene', 'Sport', 'Voyages', 'Vetements')
 # cols <- c("TRUE" = "#E83F26", "FALSE" = "#28B463")
 # p <- p + scale_fill_manual(values = cols)
 
-p_dist_deb <- ggplot(for_chart, aes(date_ope, total))
-p_dist_deb <- p_dist_deb + geom_bar(stat="identity", aes(fill = type), position = position_stack(reverse = T)) 
-p_dist_deb <- p_dist_deb + scale_fill_manual(values = col_type)
-print(p_dist_deb)
+# p_dist_deb <- ggplot(for_chart, aes(date_ope, total))
+# p_dist_deb <- p_dist_deb + geom_bar(stat="identity", aes(fill = type), position = position_stack(reverse = T)) 
+# p_dist_deb <- p_dist_deb + scale_fill_manual(values = col_type)
+# print(p_dist_deb)
 
 
 # Overall deb / cred
 p_dist_deb <- ggplot(for_chart, aes(date_ope, total))
 p_dist_deb <- p_dist_deb + geom_bar(stat="identity", aes(fill = type), position = position_stack(reverse = T)) 
+p_dist_deb <- p_dist_deb + scale_fill_manual(values = col_type)
 # Add the line for difference
 p_dist_deb <- p_dist_deb + geom_line(data=df_diff_deb_cred,
                    aes(x=date_ope, y=diff), colour=col_diff)
