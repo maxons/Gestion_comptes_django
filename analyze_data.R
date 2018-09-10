@@ -14,7 +14,7 @@ library(gridExtra)
 library(scales)
 
 data <- read.csv("test_csv_pd.csv")
-
+data <- filter(data, type != "Virement_interne")
 data$type <- factor(data$type, levels = c("Loyer", "Sorties", "Nourriture", "Loisirs", "Charges", "Autre",
                                                     "Ammeublement", "Soin_Hygiene", "Sport", "Vetements", "Voyages", "Salaire", "Travail"))
 
