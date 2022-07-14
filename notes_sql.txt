@@ -1,0 +1,56 @@
+INSERT INTO `operation` (compte, date_ope, debit, description, id, montant, type) VALUES 
+(1,'2017-04-05','TRUE','Boulangerie Sopra',24,4.70,'Nourriture');
+
+
+
+#constraint fk_compte_id foreign key (compte_id) references compte(id),
+mysql> #constraint fk_type_nom foreign key (type) references types(nom)
+mysql> 
+mysql> #alter table operation drop foreign key fk_compte;
+mysql> alter table operation
+    -> add constraint fk_compte foreign key (compte) references compte(id);
+Query OK, 0 rows affected (0,03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> alter table operation
+    -> add constraint fk_type foreign key (type_0) references types(id);
+Query OK, 0 rows affected (0,02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+
+
+
+
+mysql> 
+mysql> 
+mysql> alter table operation change compte compte_id INT
+    -> ;
+Query OK, 0 rows affected (0,05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table operation change type_0 type_0_id INT
+    -> ;
+Query OK, 0 rows affected (0,03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from operation;
+Empty set (0,00 sec)
+
+mysql> LOAD DATA INFILE '/Users/maxons/Documents/test_csv_pd.csv' into table app_gestion_django.operation;
+ERROR 1290 (HY000): The MySQL server is running with the --secure-file-priv option so it cannot execute this statement
+mysql> SHOW VARIABLES LIKE "secure_file_priv";
++------------------+-------+
+| Variable_name    | Value |
++------------------+-------+
+| secure_file_priv | NULL  |
++------------------+-------+
+1 row in set (0,02 sec)
+
+mysql> 
+
+
+alter table operation change description libelle char(150);
+alter table operation add column details char(150);
+

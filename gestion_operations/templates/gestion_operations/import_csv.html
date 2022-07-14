@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<a href={% url "accueil" %}> Lien vers accueil </a>
+
+<br>
+<input type="file" />
+
+<form action="{% url "import_csv" %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+{{ file_csv }}
+{{ new_ope.date_ope }}
+
+</html> 
